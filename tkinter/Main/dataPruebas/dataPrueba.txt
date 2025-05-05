@@ -1,0 +1,118 @@
+# *********************************************************************
+#-------------------------------------------------------------------------------------------
+#MODELO ABC
+#-------------------------------------------------------------------------------------------
+#MODELO DE DESCUENTO
+#-------------------------------------------------------------------------------------------
+#LOTE ECONOMICO
+    #CASO GERENTE - EMPLEADO
+    La empresa basa los cálculos de su inventario en el costo de almacenamiento de $0.05 (h) (unid/mes). 
+    Cuando se coloca un pedido se incurre en un costo de preparación (k) de $55. 
+    L = 3 meses
+    Demanda:
+    Para gerente:
+        d4 = [12, 50, 15, 110, 115,90,130,75,54,160,280,41]
+        d5 = [11,55,10,120,110,100,130,78,51,180,300,43]
+            #
+        gerente = suma de d4 +suma de d5 /2
+    Para empleado
+        empleado = suma (for i in d5: i +0.10)
+    h = 0.05
+    k = 55
+    L = 3 
+    c = 25$ #aleatorio ya que no esta en el enunciado
+#-------------------------------------------------------------------------------------------
+#MODELO PROBABILISTICO p(DL <= R)
+    #CASO SHAKIRA --------------------------------------------------------------------
+    Para la demanda diaria:  media = 200 discos y sigma = 20 discos
+    El costo de tener los discos: h = $0.04 por c/día. 
+    A la tienda le cuesta hacer un nuevo pedido: (k) = $100 
+    El proveedor suele especificar un tiempo de entrega: (L) = 7 días 
+
+    media = 200 
+    sigma = 20 
+    n = 360
+    h = 0.04
+    k = 100 
+    L = 7
+    pN = 6640.78 --> faltantes NO acums aleatorios
+#-------------------------------------------------------------------------------------------
+    Q = 18973.67  -> ojo, esto se calcula, pero debe dar esto con 2 decimales redondeados o aprox.
+    pN = 6640.78 = 35% de Q
+#-------------------------------------------------------------------------------------------
+# TIPO DE DEMANDA
+    d4 = [12, 50, 15, 110, 115,90,130,75,54,160,280,41]
+    d5 = [11,55,10,120,110,100,130,78,51,180,300,43]
+#-------------------------------------------------------------------------------------------
+# TEORIA DE COLAS
+En el departamento de emergencia de un hospital los pacientes llegan a una media de 3 clientes por hora. 
+El médico atiende a una tasa de 4 clientes por hora. Determine las medidas de desempeño, la probabilidad 
+de que existan tres pacientes en el sistema, probabilidad de que el cliente espere más de una hora, 
+la probabilidad de que hayan más de 5 clientes.
+
+landa = 3 p/h
+miu = 4 p/h
+
+P3
+P(Wq>t) tal que t = 1 hora ? 
+P(L>5)
+
+
+#--------------------------------------------------------
+#data, entradas y calculos descritos c/u
+landa = Tasa de llegada
+miu = Tasa de servicio miu
+pRho = landa/miu
+
+L= Cantidad promedio de clientes en el sistema
+Para calcular L:
+L= landa/(miu-landa) 
+
+Lq= Cantidad promedio de clientes en la cola
+Para calcular Lq:
+Lq= (landa**2)/(miu*(miu-landa))
+
+W= Tiempo esperado o medio del cliente en el sistema 
+Para calcular W:
+W= 1/(miu-landa) 
+
+Wq= Tiempo esperado o medio del cliente en la cola
+Para calcular Wq:
+Wq= pRho/(miu-landa)
+
+
+Para calcular las probabilidades:
+
+P0 = Probabilidad 0 para calcular tiempo ocioso
+Po = (1-pRho)
+
+Pn = Probabilidad de n para calcular nro promedio de clientes en el sistema
+En python sería:
+Pn = (1-pRho)* (pRho**n)
+
+Por ejemplo, si es P1 (Probabilidad de que haya 1 cliente promedio en el sistema):
+P1 = (1-pRho)* (pRho**1)
+
+
+
+ProbL = Probabilidad de que P(L> n)
+para ProbL se debe primero calcular P0, luego P1, y asi cada Pn por el valor de n, luego:
+ProbL = 1 - (P0+P1+...+Pn)
+
+
+ProbW = Probabilidad de que (W > t) 
+
+P(W > t)  = e ^ -miu * (1-pRho) * t
+En python usando exp sería:
+ProbW = exp((-1 * miu) * (1-pRho) * t) # 
+
+ProbWq = Probabilidad de que (Wq > t) 
+P(Wq > t) = pRho * e ^ (-miu * (1-pRho) * t)
+
+En python usando exp sería:
+ProbWq = pRho * exp((-1 * miu) * (1-pRho) * t) 
+
+
+--------------------------------------------------------------------------------
+
+

@@ -1,0 +1,13 @@
+#METODOS A SEGMENTAR
+Lote economico: 1 y 2
+
+1- Modelo probabilistico "simple" (el del examen 1 - calcsLoteEconomico)
+2- Modelo prob. con Faltantes
+3- Met para determinar el tipo de demanda
+4- Ejerc del 1 al 5 de Vectores (inicioProyecto)
+5- metodo de clasificacion de productos en inventario ABC
+6- modelo EOQ - Descuento
+7- metodo teoria de Colas (M/M/1)
+8- modelo con Revision Periodica
+9- calculo de Demanda por despeje (de R y Q)
+10- Graficas: para 1,2,4,6, 7* y 8
